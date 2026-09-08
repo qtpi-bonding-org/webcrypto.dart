@@ -78,6 +78,11 @@ target_include_directories(
   ../third_party/boringssl/src/include/
 )
 
+# Android 16 KB page size support: the NDK's default linker page size is
+# 4 KB, which Play Console now rejects. See
+# https://developer.android.com/guide/practices/page-sizes
+target_link_options(webcrypto PRIVATE "-Wl,-z,max-page-size=16384")
+
 set_target_properties(
   webcrypto
 
